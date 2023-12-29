@@ -47,7 +47,7 @@ class ProductController {
    * @param {Number} limit
    * @param {Number} page
    * @param {Number} category
-   * @param {String} sort - sort = 'price -rating_average'
+   * @param {String} sort - sort = 'price,-rating_average'
    * @returns
    */
   findAllProducts = catchAsync(async (req, res, next) => {

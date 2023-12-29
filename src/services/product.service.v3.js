@@ -23,7 +23,7 @@ class ProductService {
    * @param {Number} limit
    * @param {Number} page
    * @param {Number} category
-   * @param {String} sort - sort = 'price -rating_average'
+   * @param {String} sort - sort = 'price,-rating_average'
    * @returns
    */
   static async findAllProducts({
