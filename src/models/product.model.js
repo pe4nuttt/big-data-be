@@ -21,7 +21,6 @@ const productSchema = new Schema(
     },
     short_description: {
       type: String,
-      required: true,
     },
     price: {
       type: Number,
@@ -48,7 +47,6 @@ const productSchema = new Schema(
     brand_name: String,
     categories: {
       type: Object,
-      required: true,
     },
     rating_average: {
       type: Number,
@@ -56,6 +54,9 @@ const productSchema = new Schema(
     images: {
       type: Object,
       required: true,
+    },
+    category: {
+      type: Number,
     },
   },
   {

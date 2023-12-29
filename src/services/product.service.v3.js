@@ -18,12 +18,24 @@ class ProductService {
     });
   }
 
+  /**
+   *
+   * @param {Number} limit
+   * @param {Number} page
+   * @param {Number} category
+   * @param {String} sort - sort = 'price -rating_average'
+   * @returns
+   */
   static async findAllProducts({
     limit = 50,
     sort = 'ctime',
     page = 1,
-    filter = {},
+    category,
   }) {
+    const filter = {
+      category,
+    };
+
     return await findAllProducts({
       limit,
       sort,
