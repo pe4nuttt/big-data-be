@@ -13,22 +13,22 @@ const productSchema = new Schema(
     id: String,
     sku: {
       type: String,
-      required: true,
+      // required: true,
     },
     name: {
       type: String,
-      required: true,
+      // required: true,
     },
     short_description: {
       type: String,
     },
     price: {
       type: Number,
-      required: true,
+      // required: true,
     },
     list_price: {
       type: Number,
-      required: true,
+      // required: true,
     },
     discount: {
       type: Number,
@@ -53,7 +53,7 @@ const productSchema = new Schema(
     },
     images: {
       type: Object,
-      required: true,
+      // required: true,
     },
     category: {
       type: Number,

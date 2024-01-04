@@ -17,9 +17,14 @@ class KafkaService {
   // }
 
   static async init() {
-    await this.producer.connect().then(res => {
-      console.log('Connected to Kafka: ', res);
-    });
+    await this.producer
+      .connect()
+      .then(res => {
+        console.log('Connected to Kafka: ', res);
+      })
+      .catch(err => {
+        console.log('Connect failed!');
+      });
   }
 
   static async produceMessage(topic, message) {

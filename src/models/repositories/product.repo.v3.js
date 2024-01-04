@@ -1,11 +1,14 @@
 const product = require('../product.model');
 const { convertToObjectIdMongodb } = require('../../utils');
+var fs = require('fs');
+var util = require('util');
+var log_file = fs.createWriteStream(__dirname + '/debug.log', { flags: 'w' });
+var log_stdout = process.stdout;
 
 const updateProduct = async () => {
   function extractId(inputString) {
     try {
       const match = inputString.match(/'id':\s*(\d+)/);
-      console.log(match);
       if (match && match[1]) {
         return parseInt(match[1], 10);
       } else {
@@ -32,14 +35,22 @@ const updateProduct = async () => {
     .then(docs => {
       const promises = docs.map(doc => {
         try {
-          doc.category = extractId(doc.categories);
-          console.log('Save: ', doc.categories, typeof categoriesObj);
-          console.log('--------');
-          return doc.save();
+          if (!doc.category) {
+            doc.category = extractId(doc.categories);
+            console.log('Save: ', doc.id, doc.category, typeof categoriesObj);
+            log_file.write(
+              util.format(`id: ${doc.id}; category: ${doc.category}`) + '\n',
+            );
+            console.log('--------');
+            return doc.save();
+          }
         } catch (err) {
           console.error(
             `Error parsing JSON in document with _id ${doc._id}:`,
             err,
+          );
+          log_file.write(
+            util.format(`Error parsing product id: ${doc.id}`) + '\n',
           );
           return Promise.resolve();
         }
@@ -53,6 +64,8 @@ const updateProduct = async () => {
       console.error('Error:', err);
     });
 };
+
+// updateProduct();
 
 const queryProduct = async ({ query, limit, skip }) => {
   return await product.find(query).limit(limit).skip(skip).exec();
